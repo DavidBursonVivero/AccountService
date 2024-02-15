@@ -43,21 +43,21 @@ public class AccountController {
     }
 
     @PutMapping(value = "/{id}/retirar")
-    public ResponseEntity<Account> withDraw (@PathVariable("id") Long id, @RequestBody int amount, @RequestBody Long ownerId){
+    public ResponseEntity<Account> withDraw (@PathVariable("id") Long id, @RequestParam int amount, @RequestParam Long ownerId){
         return ResponseEntity.status(HttpStatus.OK).body(
                 service.withdrawBalance(id, amount, ownerId)
         );
     }
 
     @PutMapping(value = "/{id}/añadir")
-    public ResponseEntity<Account> add (@PathVariable("id") Long id, @RequestBody int amount, @RequestBody Long ownerId){
+    public ResponseEntity<Account> add (@PathVariable("id") Long id, @RequestParam int amount, @RequestParam Long ownerId){
         return ResponseEntity.status(HttpStatus.OK).body(
                 service.addBalance(id, amount, ownerId)
         );
     }
 
     @DeleteMapping(value ="/{id}")
-    public ResponseEntity delete (@PathVariable ("id") Long id){
+    public ResponseEntity <Account> delete (@PathVariable ("id") Long id){
         service.deleteAccountsUsingOwnerId(id);
         return ResponseEntity.noContent().build();
     }

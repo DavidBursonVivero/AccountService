@@ -3,6 +3,7 @@ package com.microcompany.accountsservice.model;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 import lombok.*;
@@ -27,15 +28,15 @@ public class Account {
     @NotBlank
     private String type;
 
-    @DateTimeFormat
-    @Pattern(regexp = "[0-9]{3}-[0-9]{3}-[0-9]{4}")
+    /*@DateTimeFormat //(pattern = "yyyy-mm-dd")
+    @Pattern(regexp = "[0-9]{4}-[0-9]{2}-[0-9]{2}")*/
     Date openingDate;
 
     @Min(1)
-    @NotBlank
+    @NotNull
     private int balance;
 
-    @NotBlank
+    @NotNull
     private Long ownerId;
 
     @Transient
