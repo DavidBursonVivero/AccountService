@@ -76,23 +76,18 @@ public class AccountControllerTest_WebMvcTest {
     }*/
 
      @Test
-    void givenAdd_Cash_WhenGetAccount_thenStatus200() throws Exception {
-        // given
-       Long id = 1L;
-        int amount = 100;
-        Long ownerId = 25L;
+    void givenAdccount_WhenGCreateAccount_thenStatus200() throws Exception {
 
-        // when - then
+         Account newAccount = new Account("Cuenta de ahorro", null, 80, 25L);
+
         mvc.perform(post("/products")
-                        .content(JsonUtil.asJsonString(accounts))
+                        .content(JsonUtil.asJsonString(newAccount))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .accept(MediaType.APPLICATION_JSON_VALUE)
-                )
+                        .accept(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(status().isCreated())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.id").exists())
-                .andExpect(jsonPath("$.id", is(greaterThan(0))))
-        ;
+                .andExpect(jsonPath("$.id", is(greaterThan(0))));
 
     }
 }
