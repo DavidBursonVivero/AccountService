@@ -51,4 +51,12 @@ public class Account {
 
     @Transient
     private Customer owner;
+
+    public Account(String type, Date openingDate, int balance, Long ownerId) {
+        this.type = type;
+        this.openingDate = openingDate;
+        this.balance = balance;
+        this.ownerId = ownerId;
+    }
+
 }
