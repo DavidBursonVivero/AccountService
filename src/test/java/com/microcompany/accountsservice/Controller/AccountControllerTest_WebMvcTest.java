@@ -37,50 +37,24 @@ public class AccountControllerTest_WebMvcTest {
     @MockBean
     private AccountRepository repository;
 
-
     @BeforeEach
-    public void setUp() {
+public void setUp() {
+    Account newAccount = new Account(1L, "Cuenta de ahorro", null, 80, 25L);
 
-        List<Account> accounts = Arrays.asList(
-                new Account("Nueva Cuenta", (Date) null, 5, 25L));
+    Mockito.when(service.create(Mockito.any(Account.class)))
+            .thenReturn(newAccount);
+    Mockito.when(service.addBalance(newAccount.getId(), 100, newAccount.getOwnerId()))
+            .thenReturn(newAccount);
+    Mockito.doNothing().when(service).delete(newAccount.getId());
 
-        Mockito.when(service.addBalance(1L, 50, 25L))
-                .thenReturn(accounts.get(0));
-
-        Mockito.when(repository.findByOwnerId(1L))
-                .thenReturn(accounts);
-
-        Mockito.when(repository.findAll())
-                .thenReturn(accounts);
-
-        Mockito.when(repository.save(Mockito.any(Account.class)))
-                .thenAnswer(elem -> {
-                    Account account = (Account) elem.getArguments()[0];
-                    account.setId(1L);
-                    return account;
-                });
-    }
-
-    /*@Test
-    public void givenAdd_Cash_WhenGetAccount_thenStatus200() throws Exception {
-        Long id = 1L;
-        int amount = 100;
-        Long ownerId = 25L;
-
-        mvc.perform(put("/accounts/" + id + "/añadir?amount=" + amount + "&ownerId=" + ownerId)
-                .accept(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
-                .andExpect(jsonPath("$.id").exists())
-                .andExpect(jsonPath("$.id", is(greaterThan(0))));
-    }*/
+}
 
      @Test
     void givenAdccount_WhenGCreateAccount_thenStatus200() throws Exception {
 
-         Account newAccount = new Account("Cuenta de ahorro", null, 80, 25L);
+        Account newAccount = new Account(1L, "Cuenta de ahorro", null, 80, 25L);
 
-        mvc.perform(post("/products")
+        mvc.perform(post("/accounts")
                         .content(JsonUtil.asJsonString(newAccount))
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .accept(MediaType.APPLICATION_JSON_VALUE))
@@ -88,6 +62,47 @@ public class AccountControllerTest_WebMvcTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.id").exists())
                 .andExpect(jsonPath("$.id", is(greaterThan(0))));
+    }
+
+     @Test
+    public void givenAdd_Cash_WhenGetAccount_thenStatus200() throws Exception {
+        Long id = 1L;
+        int amount = 100;
+        Long ownerId = 25L;
+
+        mvc.perform(put("/accounts/" + id + "/añadir?amount=" + amount + "&ownerId=" + ownerId).accept(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$.id").exists())
+                .andExpect(jsonPath("$.id", is(greaterThan(0))));
+    }
+
+    @Test
+    public void givenAdd_Cash_WhenGetAccount_thenStatus412() throws Exception {
+        Long id = 1L;
+        int amount = -200;
+        Long ownerId = 25L;
+
+        mvc.perform(put("/accounts/" + id + "/añadir?amount=" + amount + "&ownerId=" + ownerId).accept(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(status().isPreconditionFailed())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON_VALUE));
 
     }
+
+    @Test
+    public void givenDelete_Account_WhenGetAccount_thenStatus204() throws Exception {
+        Long id = 1L;
+        mvc.perform(delete("/accounts/" + id)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void givenDelete_NonExistingAccount_ThenReturns412() throws Exception {
+        Long id = 0L;
+        mvc.perform(delete("/accounts/" + id)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isPreconditionFailed());
+    }
+
 }

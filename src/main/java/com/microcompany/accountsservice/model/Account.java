@@ -52,7 +52,8 @@ public class Account {
     @Transient
     private Customer owner;
 
-    public Account(String type, Date openingDate, int balance, Long ownerId) {
+    public Account(Long id , String type, Date openingDate, int balance, Long ownerId) {
+        this.id=id;
         this.type = type;
         this.openingDate = openingDate;
         this.balance = balance;

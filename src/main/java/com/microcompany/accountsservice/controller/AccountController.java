@@ -70,7 +70,7 @@ public class AccountController {
 
     @PutMapping(value = "/{id}/añadir")
     public ResponseEntity<Account> add(@Parameter(name = "Añadir", description = "Añadir dinero a una cuenta bancaria", example = "20")
-                                       @RequestParam(required = false, defaultValue = "") String texto, @PathVariable("id") Long id, @RequestParam int amount, @RequestParam Long ownerId) {
+                                       @RequestParam(required = false, defaultValue = "") String texto, @PathVariable("id") Long id, @RequestParam @Min(1) int amount, @RequestParam Long ownerId) {
         return ResponseEntity.status(HttpStatus.OK).body(
                 service.addBalance(id, amount, ownerId)
         );

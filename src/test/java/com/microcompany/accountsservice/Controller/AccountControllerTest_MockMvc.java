@@ -67,6 +67,6 @@ public class AccountControllerTest_MockMvc {
         Long id = 0L;
         mvc.perform(delete("/accounts/" + id)
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(status().isNotFound());
+                .andExpect(status().isPreconditionFailed());
     }
 }
