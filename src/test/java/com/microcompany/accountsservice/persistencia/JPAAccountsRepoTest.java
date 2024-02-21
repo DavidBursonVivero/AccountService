@@ -34,9 +34,9 @@ public class JPAAccountsRepoTest {
     @Autowired
     private AccountRepository accountJpaRepo;
 
-
     @Test
     void deleteById() {
+
         Account account = accountJpaRepo.findById(1L).orElseThrow(() -> new AccountNotfoundException(1L));
         this.accountJpaRepo.delete(account);
     }
