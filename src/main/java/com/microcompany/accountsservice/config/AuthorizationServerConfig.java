@@ -80,12 +80,12 @@ public class AuthorizationServerConfig {
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
-                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/products-client-oidc")
+                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/accounts-client-oidc")
                 .redirectUri("https://oauthdebugger.com/debug")
                 .redirectUri("http://127.0.0.1:8080/authorized")
                 .tokenSettings(tokenSettings())
                 .scope(OidcScopes.OPENID)
-                .scope("SCOPE_products.read")
+                .scope("SCOPE_accounts.read")
                 .build();
 
         RegisteredClient oidcClient2 = RegisteredClient.withId(UUID.randomUUID().toString())
@@ -96,9 +96,9 @@ public class AuthorizationServerConfig {
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .redirectUri("https://oauthdebugger.com/debug")
                 .redirectUri("http://127.0.0.1:8080/authorized")
-                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/products-client-oidc")
+                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/accounts-client-oidc")
                 .scope(OidcScopes.OPENID)
-                .scope("SCOPE_products.write")
+                .scope("SCOPE_accounts.write")
                 .tokenSettings(tokenSettings())
                 .build();
 
@@ -110,7 +110,7 @@ public class AuthorizationServerConfig {
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .redirectUri("https://oauthdebugger.com/debug")
                 .redirectUri("http://127.0.0.1:8080/authorized")
-                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/products-client-oidc")
+                .redirectUri("http://127.0.0.1:8080/login/oauth2/code/accounts-client-oidc")
                 .scope(OidcScopes.OPENID)
                 .scope("SCOPE_accounts.client")
                 .tokenSettings(tokenSettings())
