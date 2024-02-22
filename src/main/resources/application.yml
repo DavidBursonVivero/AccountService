@@ -1,83 +1,9 @@
-spring:
-  application.name: AccountService
-  profiles.active: dev
-
 server:
-  servlet.contextPath: /api
-  port: 8080
-  error:
-     include-message: always
-     include-binding-errors: never
-     include-stacktrace: on_param
-     include-exception: true
+  port: 9000
 
-spring.mvc.pathmatch.matching-strategy: ANT_PATH_MATCHER
-app.jwt.secret: SECRET-KEY-VALUE
-
----
-spring:
-  sql.init.mode: always
-  config.activate.on-profile: dev
-  devtools.restart.enabled: true
-  application:
-    name: AccountService
-  datasource:
-    url: "jdbc:h2:mem:accountsdb"
-    driverClassName: org.h2.Driver
-    username: sa
-    password: password
-  jpa:
-    show-sql: true
-    database-platform: org.hibernate.dialect.H2Dialect
-    hibernate:
-      ddl-auto: update
-      generate-ddl: true
-    defer-datasource-initialization: true
-  h2:
-    console.enabled: true
-    console.path: /h2-ui
-
-server:
-  servlet.contextPath: /api
-  port: 9090
-
-#debug: true
 logging:
-  path: /var/tmp/
-  file: /var/tmp/mylog.log
   level:
     root: INFO
-
-
----
-spring:
-  config.activate.on-profile: prod
-  application:
-    name: AccountsService
-  datasource:
-    url: "jdbc:mysql://localhost:3306/accounts_db"
-    driverClassName: com.mysql.cj.jdbc.Driver
-    username: account_user
-    password: acc123
-  jpa:
-    show-sql: true
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-    hibernate:
-      ddl-auto: update
-      generate-ddl: true
-    defer-datasource-initialization: true
-
-server:
-  servlet.contextPath: /api/v1
-  port: 9943
-  ssl:
-      key-store: keystore2.p12
-      key-store-password: 123456
-      keyStoreType: PKCS12
-      keyAlias: tomcat
-
-security.require-ssl: true
-
-user.myname: Equipo1prod
-
-
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.springframework.security.oauth2: INFO
