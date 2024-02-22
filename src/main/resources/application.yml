@@ -12,6 +12,7 @@ server:
      include-exception: true
 
 spring.mvc.pathmatch.matching-strategy: ANT_PATH_MATCHER
+app.jwt.secret: SECRET-KEY-VALUE
 
 ---
 spring:
@@ -42,6 +43,8 @@ server:
 
 #debug: true
 logging:
+  path: /var/tmp/
+  file: /var/tmp/mylog.log
   level:
     root: INFO
 
